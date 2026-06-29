@@ -1,5 +1,7 @@
 # ATLAS — Executive Chief of Staff Agent
 
+> **⚠️ DEPRECATED.** Superseded by **AI.G** (the real Orchestrator + Chief of Staff). See [`/RECONCILIATION.md`](../../RECONCILIATION.md) and [`/command-center/`](../../command-center/).
+
 **Version:** 1.0
 **Stage:** Agent Design
 **Type:** Strategic Operational Coordination Agent

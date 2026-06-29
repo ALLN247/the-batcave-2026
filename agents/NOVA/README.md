@@ -1,5 +1,7 @@
 # NOVA — Chief Marketing Officer Agent
 
+> **⚠️ DEPRECATED.** Superseded by **CAMPAIGN ARCHITECT**, **HERALD**, **HARRIET**, **DIRECT RESPONSE COPYWRITER**, **LANDING PAGE BUILDER**, **SOCIAL CONTENT ENGINE**, **BLOG POST WRITER**, and **VOICE OF COACH G** in the real specialist roster. See [`/RECONCILIATION.md`](../../RECONCILIATION.md) and [`/command-center/`](../../command-center/).
+
 **Version:** 1.0
 **Stage:** Active Design
 **Type:** Brand Voice, Content Strategy & Growth Agent

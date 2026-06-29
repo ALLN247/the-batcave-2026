@@ -1,5 +1,7 @@
 # Scout OS — Cognitive Processing Agent
 
+> **⚠️ DEPRECATED.** Superseded by **LINK** (Ecosystem Architect), **REGINA** (Deep Research), and **THE ALCHEMIST** (Knowledge Engine) in the real specialist roster. See [`/RECONCILIATION.md`](../../RECONCILIATION.md) and [`/command-center/`](../../command-center/).
+
 **Version:** 1.0
 **Stage:** Active Design
 **Type:** Cognition, Synthesis & Generative Intelligence Layer

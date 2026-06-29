@@ -1,5 +1,7 @@
 # Agent Architecture — The Batcave 2026
 
+> **⚠️ DEPRECATED — historical record only.** This describes an early prototype (ATLAS / Scout OS / NOVA) superseded by the real AI.G Orchestrator + 20-agent roster system. See [`/RECONCILIATION.md`](../RECONCILIATION.md) and [`/command-center/`](../command-center/) for the current source of truth.
+
 **Organization:** Teach Transformations Strategies LLC
 **Operator:** Coach G / Mr. ALL'N
 **Last Updated:** 2026-05-26
