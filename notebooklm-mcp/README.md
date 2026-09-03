@@ -283,15 +283,24 @@ notebooklm mcp install claude-code --config-path ./preview.json   # dry-run the 
 
 ## Note on the existing `notebooklm` skill
 
-The skill currently synced into this account is built against **v0.3.4**. Upstream is
-**v0.8.2** and the surface has moved substantially — `artifact *` became `studio *`,
-and `profile`, `label`, `collection`, `share`, `copy`, `doctor`, and `mcp` are all new.
-The old skill's command table will produce commands that no longer exist.
+The skill currently synced into this account is pinned to **v0.3.4**; upstream is
+**v0.8.2**.
 
-`notebooklm-py` now ships its own maintained skill:
+Its *commands* still work — the `artifact` group was not renamed. What is broken is
+subtler: it assumes the pre-0.8 flat credential path
+(`~/.notebooklm/storage_state.json` instead of
+`~/.notebooklm/profiles/<profile>/storage_state.json`), so its "delete and retry"
+recovery step silently deletes nothing. It also verifies auth with a bare
+`notebooklm auth check`, which can report green on a dead session, and it omits roughly
+a third of the CLI — including `doctor`, the command that diagnoses precisely the
+problems it leaves you guessing at.
+
+The replacement archive and the full breakdown are in [`skill/`](./skill/).
+
+For Claude Code, skip the archive:
 
 ```bash
 notebooklm skill install     # then: notebooklm skill status
 ```
 
-Prefer that over the pinned copy — it tracks the CLI it documents.
+Prefer the packaged skill over a pinned copy — it tracks the CLI it documents.
