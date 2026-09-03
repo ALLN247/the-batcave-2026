@@ -1,0 +1,30 @@
+# Caddy reverse proxy for the NotebookLM MCP server (VPS deployments).
+# Caddy provisions and renews TLS automatically.
+#
+#   sudo cp Caddyfile /etc/caddy/Caddyfile
+#   sudo systemctl reload caddy
+#
+# Requires: DNS A/AAAA record for the hostname pointing at this server,
+# and ports 80 + 443 open.
+#
+# Pair with NOTEBOOKLM_MCP_TRUST_PROXY=1 so the server reads the real client IP
+# for its login throttle.
+
+notebooklm.yourdomain.com {
+	encode zstd gzip
+
+	# Streamable HTTP + SSE: disable response buffering, allow long-lived
+	# generations (audio 10-20 min, video up to 45 min).
+	reverse_proxy 127.0.0.1:9420 {
+		flush_interval -1
+		transport http {
+			read_timeout 3600s
+			write_timeout 3600s
+		}
+	}
+
+	log {
+		output file /var/log/caddy/notebooklm-mcp.log
+		format json
+	}
+}

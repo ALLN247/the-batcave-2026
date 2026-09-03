@@ -1,0 +1,9 @@
+# Never commit credentials or live config.
+*.env
+!deploy/notebooklm-mcp.env
+storage_state.json
+master_token.json
+oauth_state.json
+oauth/
+preview.json
+.notebooklm/

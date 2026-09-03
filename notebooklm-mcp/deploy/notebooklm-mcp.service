@@ -1,0 +1,49 @@
+# systemd unit for the NotebookLM MCP server (Path B).
+#
+#   sudo cp notebooklm-mcp.service /etc/systemd/system/
+#   sudo cp notebooklm-mcp.env     /etc/notebooklm-mcp.env
+#   sudo chmod 600 /etc/notebooklm-mcp.env      # holds the OAuth password
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now notebooklm-mcp
+#   journalctl -u notebooklm-mcp -f
+#
+# Replace YOUR_USER below with the account that ran 'notebooklm login' — the
+# server reads that user's Google session from ~/.notebooklm.
+
+[Unit]
+Description=NotebookLM MCP Server
+Documentation=https://github.com/teng-lin/notebooklm-py
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=YOUR_USER
+Group=YOUR_USER
+WorkingDirectory=/home/YOUR_USER
+
+EnvironmentFile=/etc/notebooklm-mcp.env
+ExecStart=/home/YOUR_USER/.notebooklm-venv/bin/python -m notebooklm.mcp \
+    --transport http --host 127.0.0.1 --port 9420 --log-level INFO
+
+Restart=on-failure
+RestartSec=10s
+TimeoutStopSec=30s
+
+# Hardening. The server needs its own ~/.notebooklm and outbound HTTPS; nothing else.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/home/YOUR_USER/.notebooklm
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictNamespaces=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+
+[Install]
+WantedBy=multi-user.target

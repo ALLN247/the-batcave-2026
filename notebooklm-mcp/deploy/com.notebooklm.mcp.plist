@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  launchd agent for the NotebookLM MCP server on macOS (Path B).
+
+    cp com.notebooklm.mcp.plist ~/Library/LaunchAgents/
+    # replace YOUR_USER and the OAuth values below first
+    launchctl load ~/Library/LaunchAgents/com.notebooklm.mcp.plist
+    tail -f /tmp/notebooklm-mcp.err.log
+
+  This is a LaunchAgent: it runs when you are logged in. For an always-on host,
+  a small Linux VPS with the systemd unit is the better fit than a laptop.
+
+  NOTE: the OAuth password sits in this plist in plaintext. chmod 600 it.
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.notebooklm.mcp</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/YOUR_USER/.notebooklm-venv/bin/python</string>
+        <string>-m</string>
+        <string>notebooklm.mcp</string>
+        <string>--transport</string><string>http</string>
+        <string>--host</string><string>127.0.0.1</string>
+        <string>--port</string><string>9420</string>
+        <string>--log-level</string><string>INFO</string>
+    </array>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>NOTEBOOKLM_MCP_OAUTH_PASSWORD</key>
+        <string>CHANGE_ME_32_PLUS_RANDOM_CHARS</string>
+        <key>NOTEBOOKLM_MCP_OAUTH_BASE_URL</key>
+        <string>https://notebooklm.yourdomain.com</string>
+        <key>NOTEBOOKLM_MCP_TRUST_PROXY</key>
+        <string>1</string>
+        <key>HOME</key>
+        <string>/Users/YOUR_USER</string>
+    </dict>
+
+    <key>RunAtLoad</key><true/>
+    <key>KeepAlive</key>
+    <dict><key>SuccessfulExit</key><false/></dict>
+
+    <key>StandardOutPath</key><string>/tmp/notebooklm-mcp.out.log</string>
+    <key>StandardErrorPath</key><string>/tmp/notebooklm-mcp.err.log</string>
+</dict>
+</plist>
